@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <!--<h1>Визуалайзер</h1><br>-->
+    <h2>Результаты расчета месячного бюджета и визуализация сфер жизни</h2><br>
+
+    <h3>Месячный бюджет (за вычетом постоянных расходов): {{ result_data.monthly_budget}} руб.</h3><br>
+    <h3>Количество членов семьи: {{ result_data.family_number}} человек(а)</h3><br>
+
+    <h4>Бюджет на питание: {{ result_data.food_budget}} руб.</h4><br>
+        <h5>Удельный вес сферы "Питание": {{ result_data.food_weight}} %</h5><br>
+            <h5>Что можно позволить (меню на 1 день):</h5><br>
+                {% for f in food_set %}
+                    <!--food_obj = Food.objects.get(id = 1).name-->
+                    <h6>{{ f.name }} (калорийность: {{ f.calorific }} Ккал, стоимость блюда: {{ f.cost }} руб.)</h6><br>
+
+                {% endfor %}
+                    <h5>Общая калорийность питания: {{ food_cal_total }} Ккал</h5><br>
+                        <h5>Общая стоимость питания: {{ food_cost_total }} руб.</h5><br>
+    <h4>Бюджет на транспорт: {{ result_data.transport_budget}} руб.</h4><br>
+        <h5>Удельный вес сферы "Транспорт": {{ result_data.transport_weight}} %</h5><br>
+            <h5>Что можно позволить в расчете на 12 поездок в неделю (если отображается меньше 12 поездок, то это означает, что остальные перемещения пешком):</h5><br>
+                {% for key, value in transport_set_number.items %}
+                    <h6>{{ value }} поездок вида "{{ key }}"</h6><br>
+                    {% endfor %}
+                        {% for t in transport_set %}
+                        <h6>Cтоимость 1 поездки вида "{{ t.name }}" составляет {{ t.cost }} руб.</h6><br>
+                    <!--food_obj = Food.objects.get(id = 1).name-->
+                        {% endfor %}
+                    <h5>Общая стоимость поездок в неделю: {{ transport_cost_total }} руб.</h5><br>
+    <h4>Бюджет на развлечения: {{ result_data.fun_budget}} руб.</h4><br>
+        <h5>Удельный вес сферы "Развлечения": {{ result_data.fun_weight}} %</h5><br>
+            <h5>Что можно позволить (в расчете на 1 неделю):</h5><br>
+                {% for key, value in fun_set_number.items %}
+                    <h6>{{ value }} развлечений(я) вида "{{ key }}"</h6><br>
+                    {% endfor %}
+                        {% for f in fun_set %}
+                        <h6>Cтоимость 1 развлечения вида "{{ f.name }}" составляет {{ f.cost }} руб.</h6><br>
+                    <!--food_obj = Food.objects.get(id = 1).name-->
+                        {% endfor %}
+                    <h5>Общая стоимость развлечений в неделю: {{ fun_cost_total }} руб.</h5><br>
+    <h4>Бюджет на спорт: {{ result_data.sport_budget}} руб.</h4><br>
+        <h5>Удельный вес сферы "Спорт": {{ result_data.sport_weight}} %</h5><br>
+            <h5>Что можно позволить (в расчете на 1 неделю):</h5><br>
+                {% for key, value in sport_set_number.items %}
+                    <h6>{{ value }} спортивных занятий(я) вида "{{ key }}"</h6><br>
+                    {% endfor %}
+                        {% for s in sport_set %}
+                        <h6>Cтоимость 1 развлечения вида "{{ s.name }}" составляет {{ s.cost }} руб.</h6><br>
+                        {% endfor %}
+                    <h5>Общая стоимость спортивных занятий в неделю: {{ sport_cost_total }} руб.</h5><br>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  </body>
+</html>
